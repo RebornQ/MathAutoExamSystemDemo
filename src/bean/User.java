@@ -104,9 +104,10 @@ public class User {
 
     /**
      * 输入答案（递归法）
+     *
      * @param scanner 外部传入的scanner对象
-     * @param start 从第几题开始
-     * @param end   到第几题结束
+     * @param start   从第几题开始
+     * @param end     到第几题结束
      */
     public void enterAnswer(Scanner scanner, int start, int end) {
         print(start, end);
@@ -115,13 +116,27 @@ public class User {
             userQuestions.get(i).setUserAnswer(scanner.nextInt());
         }
         start = start + end;
-        end =  end + start;
-        if(end > userQuestions.size()) return;
+        end = end + start;
+        if (end > userQuestions.size()) return;
         enterAnswer(scanner, start, end);
     }
 
     /**
+     * 输入答案（非递归）
+     *
+     * @param answers 外部传入的当前题目的答案
+     * @param start   从第几题开始
+     * @param end     到第几题结束
+     */
+    public void enterAnswer(int[] answers, int start, int end) {
+        for (int i = start, j = 0; i < end; i++, j++) {
+            userQuestions.get(i).setUserAnswer(answers[j]);
+        }
+    }
+
+    /**
      * 计算该用户的成绩
+     *
      * @return 用户成绩
      */
     public int calculateScore() {
@@ -138,12 +153,13 @@ public class User {
     }
 
     public void print() {
-        System.out.println("你好"+username+"，以下是你的题目：");
+        System.out.println("你好" + username + "，以下是你的题目：");
         print(0, userQuestions.size());
     }
 
     /**
      * 输出某个范围的题目
+     *
      * @param start 从第几题开始
      * @param end   到第几题结束
      */
@@ -154,5 +170,4 @@ public class User {
             userQuestions.get(i).getQuestion().print();
         }
     }
-
 }
