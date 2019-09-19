@@ -1,6 +1,7 @@
 package gui;
 
 import bean.User;
+import utils.IOUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,8 @@ public class Fram {
     private User user;
     private JLabel[] questionLabel = new JLabel[5];
     private JTextField[] answerTextField = new JTextField[5];
+
+    private static final String FILE_PATH = "{Your-Path}/成绩.txt";
 
     public Fram(User user) {
         this.user = user;
@@ -34,6 +37,8 @@ public class Fram {
     }
 
     public void init() {
+
+        IOUtil.createFile(FILE_PATH);
 
         /*标题部分--North*/
         JPanel titlePanel = new JPanel();
@@ -75,6 +80,9 @@ public class Fram {
                 enterAnswer(start, end, false);
 
                 user.calculateScore();
+
+                IOUtil.writeLine(FILE_PATH, user.toString());
+
                 JOptionPane.showMessageDialog(null,
                         "答对 " + user.getRightCount() + " 题\n"
                                 + "成绩是：" + user.getScore());

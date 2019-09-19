@@ -181,6 +181,11 @@ public class User {
         print(0, userQuestions.size());
     }
 
+    @Override
+    public String toString() {
+        return username + " " + grade + " " + clazz + " " + score + "\r\n";
+    }
+
     /**
      * 输出某个范围的题目
      *
