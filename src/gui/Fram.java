@@ -29,6 +29,8 @@ public class Fram {
         init();
         //设置窗体可见
         jFrame.setVisible(true);
+        // 设置点击关闭窗口后的操作，这里是设置窗口关闭则关闭程序
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void init() {
