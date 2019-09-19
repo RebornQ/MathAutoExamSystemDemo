@@ -148,12 +148,10 @@ public class User {
      * 输入答案（非递归法）
      *
      * @param answers 外部传入的答案数组
-     * @param start   从第几题开始
-     * @param end     到第几题结束
      */
-    public void enterAnswer(int[] answers, int start, int end) {
-        for (int i = start, j = 0; i < end; i++, j++) {
-            userQuestions.get(i).setUserAnswer(answers[j]);
+    public void enterAnswer(int[] answers) {
+        for (int i = 0; i < answers.length; i++) {
+            userQuestions.get(i).setUserAnswer(answers[i]);
         }
     }
 
@@ -164,6 +162,9 @@ public class User {
      */
     public int calculateScore() {
         score = 0;  // 每次计算都初始化为0，避免重复计算的时候累加成绩
+        rightCount = 0;
+        answerSituation = null;
+        answerSituation = new int[questionCount];
         // 迭代 userQuestions 对象
         for (int i = 0; i < userQuestions.size(); i++) {
             UserQuestion userQuestion = userQuestions.get(i);

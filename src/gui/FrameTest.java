@@ -38,6 +38,8 @@ public class FrameTest {
         jFrame.setVisible(true);
         // 设置点击关闭窗口后的操作，这里是设置窗口关闭则关闭程序
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // 设置禁止窗口放大缩小，防止改变窗口大小后布局变型
+        jFrame.setResizable(false);
     }
 
     public void init() {

@@ -109,6 +109,7 @@ public class Question {
         if (result < 0) {
             return null;
         }
+        resultBuilder.append(ID).append(") ");
         for (int i = 0; i < nums.length; i++) {
             if (i == 0) {
                 resultBuilder.append(nums[i]);
