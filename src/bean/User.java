@@ -11,11 +11,11 @@ public class User {
 
     private List<UserQuestion> userQuestions;   // 用户的题目
 
-    private int questionCount;  // 题目数
+    private int questionCount = 0;  // 题目数
 
-    private int score;  // 用户的成绩
+    private int score = 0;  // 用户的成绩
 
-    private int rightCount; // 答对的题数
+    private int rightCount = 0; // 答对的题数
 
     private int[] answerSituation;  // 简单记录答题情况，0是错1是对。如0110就是第1、4题答错了，第2、3题答对了
 
@@ -143,7 +143,7 @@ public class User {
      * @return 用户成绩
      */
     public int calculateScore() {
-        score = 0;
+        score = 0;  // 每次计算都初始化为0，避免重复计算的时候累加成绩
         // 迭代 userQuestions 对象
         for (int i = 0; i < userQuestions.size(); i++) {
             UserQuestion userQuestion = userQuestions.get(i);

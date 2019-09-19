@@ -36,7 +36,7 @@ public class Fram {
         /*标题部分--North*/
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout());
-        titlePanel.add(new JLabel("正在答题"));
+        titlePanel.add(new JLabel(user.getUsername() + " 正在答题"));
         c.add(titlePanel, "North");
 
         JPanel questionpanel = new JPanel();
@@ -73,7 +73,7 @@ public class Fram {
                 enterAnswer(start, end, false);
 
                 user.calculateScore();
-                JOptionPane.showMessageDialog(null, "成绩是：" + user.getScore());
+                JOptionPane.showMessageDialog(null, "答对 " + user.getRightCount() + " 题\n" + "成绩是：" + user.getScore());
             }
         });
 
@@ -112,7 +112,8 @@ public class Fram {
             try {
                 answers[i] = Integer.parseInt(answerTextField[i].getText());
             } catch (NumberFormatException e1) {
-                answers[i] = -1;
+                answers[i] = -1;    // 避免数组初始化为0且发生类型转换错误时答案输入为0
+                e1.printStackTrace();
             }
             if (cleanTextFlag) {
                 answerTextField[i].setText("");

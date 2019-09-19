@@ -4,7 +4,7 @@ public class UserQuestion {
 
     private Question question;  // 用户问题
 
-    private int userAnswer; // 用户答案
+    private int userAnswer = -1; // 用户答案
 
     public UserQuestion() {
         question = new Question();

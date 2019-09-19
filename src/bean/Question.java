@@ -6,7 +6,7 @@ public class Question {
     private int[] nums = new int[3];   // 随机数3个
     private int[] operationTypes = new int[2];   // 0为减，1为加，依次混合运算
 
-    private int result = -2;    // 混合运算结果
+    private int result = -2;    // 混合运算结果，初始化为-2避免与用户默认答案-1冲突
 
     public final int SCORE = 2; // 每道题的分数
 
