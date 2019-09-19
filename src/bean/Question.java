@@ -6,7 +6,7 @@ public class Question {
     private int[] nums = new int[3];   // 随机数3个
     private int[] operationTypes = new int[2];   // 0为减，1为加，依次混合运算
 
-    private int result = -1;    // 混合运算结果
+    private int result = -2;    // 混合运算结果
 
     public final int SCORE = 2; // 每道题的分数
 
@@ -101,6 +101,30 @@ public class Question {
         }
         System.out.println();
 //        System.out.println(" = " + result);
+    }
+
+    // 组装题目字串
+    public String toString() {
+        StringBuilder resultBuilder = new StringBuilder();
+        if (result < 0) {
+            return null;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (i == 0) {
+                resultBuilder.append(nums[i]);
+                continue;
+            }
+            switch (operationTypes[i - 1]) {
+                case 0: // -
+                    resultBuilder.append(" - ").append(nums[i]);
+                    break;
+                case 1: // +
+                    resultBuilder.append(" + ").append(nums[i]);
+                    break;
+            }
+        }
+        resultBuilder.append(" = ");
+        return resultBuilder.toString();
     }
 
 }

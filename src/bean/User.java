@@ -19,6 +19,9 @@ public class User {
 
     private int[] answerSituation;  // 简单记录答题情况，0是错1是对。如0110就是第1、4题答错了，第2、3题答对了
 
+    public User() {
+    }
+
     public User(String username) {
         this.username = username;
     }
@@ -99,7 +102,7 @@ public class User {
      * 生成50道题目
      */
     public void generate50Questions() {
-        generateQuestions(10);
+        generateQuestions(50);
     }
 
     /**
@@ -122,9 +125,9 @@ public class User {
     }
 
     /**
-     * 输入答案（非递归）
+     * 输入答案（非递归法）
      *
-     * @param answers 外部传入的当前题目的答案
+     * @param answers 外部传入的答案数组
      * @param start   从第几题开始
      * @param end     到第几题结束
      */
@@ -140,6 +143,7 @@ public class User {
      * @return 用户成绩
      */
     public int calculateScore() {
+        score = 0;
         // 迭代 userQuestions 对象
         for (int i = 0; i < userQuestions.size(); i++) {
             UserQuestion userQuestion = userQuestions.get(i);
@@ -170,4 +174,5 @@ public class User {
             userQuestions.get(i).getQuestion().print();
         }
     }
+
 }
