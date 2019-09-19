@@ -9,6 +9,10 @@ public class User {
 
     private String username;    // 用户名
 
+    private String grade;   // 年级
+
+    private String clazz;   // 班级
+
     private List<UserQuestion> userQuestions;   // 用户的题目
 
     private int questionCount = 0;  // 题目数
@@ -32,6 +36,22 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(String clazz) {
+        this.clazz = clazz;
     }
 
     public List<UserQuestion> getUserQuestions() {

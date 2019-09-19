@@ -36,7 +36,7 @@ public class Fram {
         /*标题部分--North*/
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout());
-        titlePanel.add(new JLabel(user.getUsername() + " 正在答题"));
+        titlePanel.add(new JLabel(user.getGrade() + "年级" + user.getClazz() + "班" + user.getUsername() + " 正在答题"));
         c.add(titlePanel, "North");
 
         JPanel questionpanel = new JPanel();
@@ -73,7 +73,9 @@ public class Fram {
                 enterAnswer(start, end, false);
 
                 user.calculateScore();
-                JOptionPane.showMessageDialog(null, "答对 " + user.getRightCount() + " 题\n" + "成绩是：" + user.getScore());
+                JOptionPane.showMessageDialog(null,
+                        "答对 " + user.getRightCount() + " 题\n"
+                                + "成绩是：" + user.getScore());
             }
         });
 

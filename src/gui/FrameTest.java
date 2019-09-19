@@ -79,13 +79,15 @@ public class FrameTest {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = getUsername();
-                String clazz = getClazz();
                 String grade = getGrade();
+                String clazz = getClazz();
                 // String score = getScore();
-                if (username == null || clazz == null || grade == null) {
+                if ((username == null || clazz == null || grade == null) || (username.equals("") || grade.equals("") || clazz.equals(""))) {
                     JOptionPane.showMessageDialog(null, "请填写内容");
                 } else {
                     user.setUsername(username);
+                    user.setGrade(grade);
+                    user.setClazz(clazz);
                     new Fram(user);
                     jFrame.setVisible(false);
                 }
