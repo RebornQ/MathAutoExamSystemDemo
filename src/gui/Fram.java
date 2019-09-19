@@ -78,15 +78,15 @@ public class Fram {
         }
 
         /*按钮部分--South*/
-        JPanel buttonPanel = new JPanel();
-        JPanel buttonPanel1 = new JPanel();
-        JPanel buttonPanel2 = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        JPanel buttonPanel = new JPanel();  // 包住下面两个Panel的大Panel
+        JPanel buttonPanel1 = new JPanel(); // 存上一页按钮、下一页按钮和当前页码的Panel
+        JPanel buttonPanel2 = new JPanel(); // 存提交按钮的Panel
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));    // 设置一个垂直布局的Panel
         buttonPanel1.setLayout(new FlowLayout());
         buttonPanel2.setLayout(new FlowLayout());
         // 执行操作：输入题目的答案 然后点击下一页
         JButton previous = new JButton("上一页");
-        JLabel pageLabel = new JLabel(page + "/" + panelCount);
+        JLabel pageLabel = new JLabel(page + "/" + panelCount); // 显示当前页码
         JButton next = new JButton("下一页");
         JButton sbbtn = new JButton("提交");
         buttonPanel1.add(previous);
@@ -96,7 +96,7 @@ public class Fram {
         buttonPanel.add(buttonPanel1);
         buttonPanel.add(buttonPanel2);
         c.add(buttonPanel, "South");
-        previous.setEnabled(false);
+        previous.setEnabled(false); // 在第一页时上一页禁用
 
         sbbtn.addActionListener(new ActionListener() {
             @Override
@@ -125,9 +125,10 @@ public class Fram {
 
                 // 显示上一页的内容
                 cardLayout.previous(questionPanel);
+                // 只要点击了上一页，下一页一定可点击
                 next.setEnabled(true);
 
-                if (page == 1) {
+                if (page == 1) {    // 在第一页时上一页禁用
                     previous.setEnabled(false);
                 }
             }
@@ -144,9 +145,10 @@ public class Fram {
 
                 // 显示下一页的内容
                 cardLayout.next(questionPanel);
+                // 只要点击了下一页，上一页一定可点击
                 previous.setEnabled(true);
 
-                if (page == panelCount) {
+                if (page == panelCount) {   // 在最后一页时下一页禁用
                     next.setEnabled(false);
                 }
             }
