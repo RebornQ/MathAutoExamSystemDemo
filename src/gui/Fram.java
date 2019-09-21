@@ -7,14 +7,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Fram {
     private User user;
+
     private JFrame jFrame = new JFrame("题目");//创建一个窗口标题为“题目”的窗口框架
     private Container c = jFrame.getContentPane();//初始化容器
     private JLabel[][] questionLabels;
     private JTextField[][] answerTextFields;
     private CardLayout cardLayout;
+    private JLabel timeLabel;
 
     private int panelCount = 0;
     private int page = 1;
@@ -46,10 +51,18 @@ public class Fram {
         IOUtil.createFile(FILE_PATH);
 
         /*标题部分--North*/
+        JPanel titleTimePanel = new JPanel();
         JPanel titlePanel = new JPanel();
+        JPanel timePanel = new JPanel();
+        titleTimePanel.setLayout(new BoxLayout(titleTimePanel, BoxLayout.Y_AXIS));    // 设置一个垂直布局的Panel
         titlePanel.setLayout(new FlowLayout());
+        timePanel.setLayout(new FlowLayout());
         titlePanel.add(new JLabel(user.getGrade() + "年级" + user.getClazz() + "班" + user.getUsername() + " 正在答题"));
-        c.add(titlePanel, "North");
+        timeLabel = new JLabel("剩余 0h0min0s");
+        timePanel.add(timeLabel);
+        titleTimePanel.add(titlePanel);
+        titleTimePanel.add(timePanel);
+        c.add(titleTimePanel, "North");
 
         JPanel questionPanel = new JPanel();
         cardLayout = new CardLayout(5, 5);  // 创建一个水平间距和垂直间距均为5的卡片布局
@@ -68,9 +81,9 @@ public class Fram {
                 for (int j = 0; j < 5; j++) {
                     questionLabels[i][j] = new JLabel(user.getUserQuestions().get(5 * i + j).getQuestion().toString());
                     answerTextFields[i][j] = new JTextField();
-                    questionLabels[i][j].setBounds(50, (j + 1) * 20, 150, 20);
+                    questionLabels[i][j].setBounds(50, j * 20, 150, 20);
                     questionPanels[i].add(questionLabels[i][j]);
-                    answerTextFields[i][j].setBounds(190, (j + 1) * 20, 50, 20);
+                    answerTextFields[i][j].setBounds(190, j * 20, 50, 20);
                     questionPanels[i].add(answerTextFields[i][j]);
                 }
                 questionPanel.add(questionPanels[i]);
@@ -101,17 +114,7 @@ public class Fram {
         sbbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                // 存最后一页答案
-                enterAnswers();
-
-                user.calculateScore();
-
-                IOUtil.writeLine(FILE_PATH, user.toString());
-
-                JOptionPane.showMessageDialog(null,
-                        "答对 " + user.getRightCount() + " 题\n"
-                                + "成绩是：" + user.getScore());
+                submit();
             }
         });
 
@@ -154,6 +157,8 @@ public class Fram {
             }
 
         });
+        // 倒计时1分钟
+        countDownTime(1);
     }
 
     private void enterAnswers() {
@@ -168,6 +173,53 @@ public class Fram {
             }
         }
         user.enterAnswer(answers);  //存答案
+    }
+
+    private void submit() {
+        // 存最后一页答案
+        enterAnswers();
+
+        user.calculateScore();
+
+        IOUtil.writeLine(FILE_PATH, user.toString());
+
+        jFrame.dispose();
+
+        JOptionPane.showMessageDialog(null,
+                "答对 " + user.getRightCount() + " 题\n"
+                        + "成绩是：" + user.getScore());
+    }
+
+    /**
+     * 使用java.util.Timer类进行倒计时
+     *
+     * @param timeout 倒计时的时间，单位分钟
+     */
+    private void countDownTime(long timeout) {
+        // 创建定时器对象
+        final Timer timer = new Timer();
+        long start = System.currentTimeMillis();
+        // end 计算结束时间
+        final long end = start + timeout * 60 * 1000;
+        // 延迟0毫秒（即立即执行）开始，每隔1000毫秒执行一次
+        timer.schedule(new TimerTask() {
+            public void run() {
+                //show是剩余时间，即要显示的时间
+                long show = end - System.currentTimeMillis();
+                long hh = show / 1000 / 60 / 60;
+                long mm = show / 1000 / 60 % 60;
+                long ss = show / 1000 % 60;
+//                System.out.println("还剩" + hh + "小时" + mm + "分钟" + ss + "秒");
+                timeLabel.setText("剩余 " + hh + "h" + mm + "min" + ss + "s");
+            }
+        }, 0, 1000);
+        // 计时结束时候，停止全部timer计时计划任务
+        timer.schedule(new TimerTask() {
+            public void run() {
+                submit();
+                timer.cancel();
+            }
+        }, new Date(end));
     }
 }
 

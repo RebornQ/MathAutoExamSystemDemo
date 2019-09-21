@@ -93,7 +93,7 @@ public class FrameTest {
                     user.setGrade(grade);
                     user.setClazz(clazz);
                     new Fram(user);
-                    jFrame.setVisible(false);
+                    jFrame.dispose();
                 }
             }
         });
