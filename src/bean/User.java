@@ -3,7 +3,6 @@ package bean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class User {
 
@@ -20,15 +19,6 @@ public class User {
     private int score = 0;  // 用户的成绩
 
     private int rightCount = 0; // 答对的题数
-
-    private int[] answerSituation;  // 简单记录答题情况，0是错1是对。如0110就是第1、4题答错了，第2、3题答对了
-
-    public User() {
-    }
-
-    public User(String username) {
-        this.username = username;
-    }
 
     public String getUsername() {
         return username;
@@ -74,10 +64,6 @@ public class User {
         return rightCount;
     }
 
-    public int[] getAnswerSituation() {
-        return answerSituation;
-    }
-
     public int getQuestionCount() {
         return questionCount;
     }
@@ -115,7 +101,6 @@ public class User {
             }
         }
         questionCount = userQuestions.size();
-        answerSituation = new int[questionCount];
     }
 
     /**
@@ -123,25 +108,6 @@ public class User {
      */
     public void generate50Questions() {
         generateQuestions(50);
-    }
-
-    /**
-     * 输入答案（递归法）
-     *
-     * @param scanner 外部传入的scanner对象
-     * @param start   从第几题开始
-     * @param end     到第几题结束
-     */
-    public void enterAnswer(Scanner scanner, int start, int end) {
-        print(start, end);
-        System.out.println("请输入你的答案(以空格隔开)：");
-        for (int i = start; i < end; i++) {
-            userQuestions.get(i).setUserAnswer(scanner.nextInt());
-        }
-        start = start + end;
-        end = end + start;
-        if (end > userQuestions.size()) return;
-        enterAnswer(scanner, start, end);
     }
 
     /**
@@ -163,42 +129,20 @@ public class User {
     public int calculateScore() {
         score = 0;  // 每次计算都初始化为0，避免重复计算的时候累加成绩
         rightCount = 0;
-        answerSituation = null;
-        answerSituation = new int[questionCount];
         // 迭代 userQuestions 对象
         for (int i = 0; i < userQuestions.size(); i++) {
             UserQuestion userQuestion = userQuestions.get(i);
             if (userQuestion.checkAnswer()) {
                 score = score + userQuestion.getQuestion().SCORE;
                 rightCount++;
-                answerSituation[i] = 1;
             }
         }
         return score;
     }
 
-    public void print() {
-        System.out.println("你好" + username + "，以下是你的题目：");
-        print(0, userQuestions.size());
-    }
-
     @Override
     public String toString() {
         return username + " " + grade + " " + clazz + " " + score + "\r\n";
-    }
-
-    /**
-     * 输出某个范围的题目
-     *
-     * @param start 从第几题开始
-     * @param end   到第几题结束
-     */
-    public void print(int start, int end) {
-//        System.out.println("请输入以下5题的答案(以空格隔开)：");
-        // 输出生成的题目
-        for (int i = start; i < end; i++) {
-            userQuestions.get(i).getQuestion().print();
-        }
     }
 
 }

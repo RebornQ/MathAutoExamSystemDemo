@@ -1,5 +1,5 @@
 import bean.User;
-import gui.FrameTest;
+import gui.LoginFrame;
 
 public class Client {
 
@@ -7,7 +7,7 @@ public class Client {
 
         // 声明用户
         User user = new User();
-        new FrameTest(user);
+        new LoginFrame(user);
 
         // 生成题目
         user.generate50Questions();

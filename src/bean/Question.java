@@ -79,30 +79,6 @@ public class Question {
         return result;
     }
 
-    public void print() {
-        System.out.print("题目" + ID + ": ");
-        if (result < 0) {
-            System.out.println("生成的题目有误！");
-            return;
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if (i == 0) {
-                System.out.print(nums[i]);
-                continue;
-            }
-            switch (operationTypes[i - 1]) {
-                case 0: // -
-                    System.out.print(" - " + nums[i]);
-                    break;
-                case 1: // +
-                    System.out.print(" + " + nums[i]);
-                    break;
-            }
-        }
-        System.out.println();
-//        System.out.println(" = " + result);
-    }
-
     // 组装题目字串
     public String toString() {
         StringBuilder resultBuilder = new StringBuilder();

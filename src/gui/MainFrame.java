@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Fram {
+public class MainFrame {
     private User user;
 
     private JFrame jFrame = new JFrame("题目");//创建一个窗口标题为“题目”的窗口框架
@@ -28,14 +28,12 @@ public class Fram {
 
     private static final String FILE_PATH = "/Users/reborn/Desktop/成绩.txt";
 
-    public Fram(User user) {
+    public MainFrame(User user) {
         this.user = user;
         //设置窗体的位置及大小
         jFrame.setBounds(550, 230, 300, 270);
         //设置一层相当于桌布的东西
         c.setLayout(new BorderLayout());//布局管理器
-        //设置按下右上角X号后关闭
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //初始化--往窗体里放其他控件
         init();
         //设置窗体可见
